@@ -19,10 +19,11 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Nadanie uprawnień do skanowania Rails
+        run: chmod +x bin/brakeman
+
       - name: Skanowanie w poszukiwaniu luk bezpieczeństwa w Rails
-        run: |
-          gem install brakeman
-          bin/brakeman --no-pager
+        run: bin/brakeman --no-pager
 
   scan_js:
     runs-on: ubuntu-latest
@@ -36,6 +37,9 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+
+      - name: Nadanie uprawnień do skanowania JavaScript
+        run: chmod +x bin/importmap
 
       - name: Skanowanie zależności JavaScript
         run: |
@@ -54,10 +58,11 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Nadanie uprawnień dla lintowania
+        run: chmod +x bin/rubocop
+
       - name: Linting kodu dla spójności stylu
-        run: |
-          gem install rubocop
-          bin/rubocop -f github
+        run: bin/rubocop -f github
 
   test:
     runs-on: ubuntu-latest
@@ -74,6 +79,9 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+
+      - name: Nadanie uprawnień do testowania
+        run: chmod +x bin/rails
 
       - name: Uruchomienie testów
         env:
