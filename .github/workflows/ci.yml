@@ -10,94 +10,110 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Sprawdzenie kodu
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Ustawienie Ruby
+      - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Nadanie uprawnień do skanowania Rails
+      - name: Install Ruby dependencies
+        run: bundle install
+
+      - name: Give permission to run Brakeman
         run: chmod +x bin/brakeman
 
-      - name: Skanowanie w poszukiwaniu luk bezpieczeństwa w Rails
+      - name: Scan for common Rails security vulnerabilities using Brakeman
         run: bin/brakeman --no-pager
 
   scan_js:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Sprawdzenie kodu
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Ustawienie Ruby
+      - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Nadanie uprawnień do skanowania JavaScript
+      - name: Install Ruby dependencies
+        run: bundle install
+
+      - name: Install JavaScript dependencies
+        run: yarn install
+
+      - name: Give permission to run Importmap
         run: chmod +x bin/importmap
 
-      - name: Skanowanie zależności JavaScript
-        run: |
-          yarn install
-          bin/importmap audit
+      - name: Scan for vulnerabilities in JavaScript dependencies
+        run: bin/importmap audit
 
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Sprawdzenie kodu
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Ustawienie Ruby
+      - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Nadanie uprawnień dla lintowania
+      - name: Install Ruby dependencies
+        run: bundle install
+
+      - name: Give permission to run RuboCop
         run: chmod +x bin/rubocop
 
-      - name: Linting kodu dla spójności stylu
+      - name: Lint code for consistent style
         run: bin/rubocop -f github
 
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Instalacja pakietów
+      - name: Install necessary packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl libjemalloc2 libvips sqlite3
 
-      - name: Sprawdzenie kodu
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Ustawienie Ruby
+      - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Nadanie uprawnień do testowania
+      - name: Install Ruby dependencies
+        run: bundle install
+
+      - name: Install JavaScript dependencies
+        run: yarn install
+
+      - name: Give permission to run Rails
         run: chmod +x bin/rails
 
-      - name: Przygotowanie bazy danych
+      - name: Prepare database
         env:
           RAILS_ENV: test
         run: |
           bin/rails db:create
           bin/rails db:migrate
 
-      - name: Uruchomienie testów
+      - name: Run tests
         env:
           RAILS_ENV: test
         run: |
           bin/rails test
           bin/rails test:system
 
-      - name: Zachowanie zrzutów ekranu z nieudanych testów
+      - name: Save screenshots from failed system tests
         uses: actions/upload-artifact@v4
         if: failure()
         with:
