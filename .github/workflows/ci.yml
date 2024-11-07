@@ -19,6 +19,9 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Zamiana 'ruby.exe' na 'ruby' w skryptach
+        run: find bin/ -type f -exec sed -i 's/ruby.exe/ruby/g' {} +
+
       - name: Nadanie uprawnień do skanowania Rails
         run: chmod +x bin/brakeman
 
@@ -58,6 +61,9 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Zamiana 'ruby.exe' na 'ruby' w skryptach
+        run: find bin/ -type f -exec sed -i 's/ruby.exe/ruby/g' {} +
+
       - name: Nadanie uprawnień dla lintowania
         run: chmod +x bin/rubocop
 
@@ -79,6 +85,9 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+
+      - name: Zamiana 'ruby.exe' na 'ruby' w skryptach
+        run: find bin/ -type f -exec sed -i 's/ruby.exe/ruby/g' {} +
 
       - name: Nadanie uprawnień do testowania
         run: chmod +x bin/rails
