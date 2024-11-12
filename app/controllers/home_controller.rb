@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   def index
     # render plain: "Hello World from rails 7"
 
-    #render html: "<h1>Hello World from rails 7</h1>".html_safe
+    # render html: "<h1>Hello World from rails 7</h1>".html_safe
 
     message = "<h1>Hello World from rails 7</h1>"
     message += "<h2>Hello World from rails 7</h2>"
