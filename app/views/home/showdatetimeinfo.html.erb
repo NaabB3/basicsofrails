@@ -1,0 +1,11 @@
+<div>
+    <h1>Current time info</h1>
+
+    <p>Day is <%= @currenttime.day %></p>
+    <p>Month is <%= @currenttime.month %></p>
+    <p>Year is <%= @currenttime.year %></p>
+    <p>Day in the year is <%= @currenttime.yday %></p>
+    <% @currenthour = "#{@currenttime.hour}" +":"+ "#{@currenttime.min}" +":"+ "#{@currenttime.sec}" %>
+    <p>Hour is <%= @currenthour %></p>
+    
+</div>
