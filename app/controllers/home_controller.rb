@@ -46,12 +46,12 @@ class HomeController < ApplicationController
 
   def conditionalrendering
     @data = {
-      'name':'Wiktor',
-      'isvisible':true,
-      'loggedin':true,
-      'country':'United States',
-      'workexperience':45,
-      'statecode':nil
+      "name":"Wiktor",
+      "isvisible":true,
+      "loggedin":true,
+      "country":"United States",
+      "workexperience":45,
+      "statecode":nil
   }
   end
 end
