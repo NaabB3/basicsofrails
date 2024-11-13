@@ -1,0 +1,52 @@
+<table class="table">
+    <tr>
+        <td>Name</td>
+        <td>Is visible</td>
+        <td>Logged in</td>
+        <td>Country</td>
+        <td>Work experience</td>
+        <td>State code</td>
+    </tr>
+    <tr>
+        <td><%= @data[:name] %></td>
+        <td><%= @data[:isvisible] %></td>
+        <td><%= @data[:loggedin] %></td>
+        <td><%= @data[:country] %></td>
+        <td><%= @data[:workexperience] %></td>
+        <td><%= @data[:statecode] %></td>
+    </tr>
+</table>
+
+<% if @data[:loggedin]%>
+    <h1>Hi <%= @data[:name] %>! You are currently logged in!</h1>
+<% else %>
+    <h1>You are just a guest. please log in</h1>
+<% end %>
+
+
+<% if @data[:name] == "Wiktor" %>
+    <h1>Hi <%= @data[:name] %>! You are first user!</h1>
+<% else %>
+    <h1>You are just a guest. please log in</h1>
+<% end %>
+
+<% if @data[:country] == "United States" %>
+    <h1>Hi <%= @data[:name] %>! Your country is United states!</h1>
+<% elsif @data[:country] == "Poland" %>
+    <h1>Hi <%= @data[:name] %>! Your country is Poland.</h1>
+<% else %>
+    <h1>Unidentified country</h1>
+<% end %>
+
+
+<% if @data[:workexperience] > 30 and  @data[:workexperience] < 50 %>
+    <h1>You are eligible to be the CEO</h1>
+<% else %>
+    <h1>You have to wait</h1>
+<% end %>
+
+<% if @data[:statecode] == nil %>
+    <h1>Please enter a state code</h1>
+<% else %>
+    <h1><%= @data[:statecode] %></h1>
+<% end %>
