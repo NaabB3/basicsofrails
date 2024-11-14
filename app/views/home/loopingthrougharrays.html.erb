@@ -1,0 +1,25 @@
+<table class="table">
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Quantity</td>
+            <td>Units In Stock</td>
+            <td>Discontinued</td>
+            <td>Cost</td>
+        </tr>
+    </thead>
+    <tbody>
+        <% @Products.each do |products|%>
+        <tr>
+            <td><%= products[:productid] %></td>
+            <td><%= products[:productname] %></td>
+            <td><%= products[:quantity] %></td>
+            <td><%= products[:unitsInStock] %></td>
+            <td><%= products[:disContinued] %></td>
+            <td><%= products[:cost] %></td>
+            
+        </tr>
+        <% end %>
+    </tbody>
+</table>
