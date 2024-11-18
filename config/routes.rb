@@ -17,4 +17,10 @@ Rails.application.routes.draw do
   get "home/showdatetimeinfo" => "home#showdatetimeinfo"
   get "home/conditionalrendering" => "home#conditionalrendering"
   get "home/loopingthrougharrays" => "home#loopingthrougharrays"
+
+  get "home/LoadUsers" => "home#LoadUsers"
+  get "home/LoadUsers2" => "home#LoadUsers2"
+  get "home/ShowUserDetails" => "home#ShowUserDetails"
+
+  get "home/LoadUserDetails/:id" => "home#LoadUserDetails", as: "LoadUserDetails"
 end
